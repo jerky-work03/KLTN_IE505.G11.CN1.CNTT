@@ -3,4 +3,4 @@ method = "guarddog"
 version = "UNSELECTED"
 rules_snapshot = "UNSELECTED"
 decision_rule = "UNSELECTED"
-# Ch?t phi?n b?n, rules, metadata v? decision rule sau pilot.
+# Chốt phiên bản, rules, metadata và decision rule sau pilot.

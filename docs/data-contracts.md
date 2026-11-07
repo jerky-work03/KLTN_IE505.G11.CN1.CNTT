@@ -1,7 +1,7 @@
-# H?p ??ng d? li?u
+# Hợp đồng dữ liệu
 
-Manifest b?t bu?c c? `sample_id`, ecosystem, package, version, artifact filename, SHA-256, ngu?n, snapshot ngu?n, label, c?n c? nh?n, ng?y ph?t h?nh/ph?t hi?n/thu th?p v? tr?ng th?i x? l?. Kh?ng suy ra benign ch? v? detector kh?ng c?nh b?o.
+Manifest bắt buộc có `sample_id`, ecosystem, package, version, artifact filename, SHA-256, nguồn, snapshot nguồn, label, căn cứ nhãn, ngày phát hành/phát hiện/thu thập và trạng thái xử lý. Không suy ra benign chỉ vì detector không cảnh báo.
 
-Prediction ph?i l?u `sample_id`, `method`, `run_id`, status, label d? ?o?n (n?u c?), score (n?u c?), evidence, latency, input/output token v? l?i/retry. `inconclusive`, `error` v? `unsupported` ???c gi? ri?ng khi t?nh coverage; recall v?n h?nh v?n t?nh m?u ??c h?i ch?a ph?t hi?n l? b? s?t.
+Prediction phải lưu `sample_id`, `method`, `run_id`, status, label dự đoán (nếu có), score (nếu có), evidence, latency, input/output token và lỗi/retry. `inconclusive`, `error` và `unsupported` được giữ riêng khi tính coverage; recall vận hành vẫn tính mẫu độc hại chưa phát hiện là bỏ sót.
 
-Feature extractor ph?i tr? schema version, c? thi?u d? li?u, danh s?ch file ?? ??c/b? qua v? evidence c? v? tr?. Kh?ng ??a ???ng d?n c? nh?n, c?nh b?o ngu?n ho?c k?t lu?n m? ??c v?o feature/prompt.
+Feature extractor phải trả schema version, cờ thiếu dữ liệu, danh sách file đã đọc/bỏ qua và evidence có vị trí. Không đưa đường dẫn có nhãn, cảnh báo nguồn hoặc kết luận mã độc vào feature/prompt.

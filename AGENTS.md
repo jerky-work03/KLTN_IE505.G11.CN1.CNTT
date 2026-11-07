@@ -1,9 +1,10 @@
-# Quy t?c cho agent v? c?ng c? h? tr? code
+# Quy tắc cho agent và công cụ hỗ trợ code
 
-??c `TEAM_RULES.md` tr??c khi s?a code. C?c quy t?c trong ?? l? quy ??c chung c?a hai th?nh vi?n.
+Đọc `TEAM_RULES.md` trước khi sửa code. Các quy tắc trong đó là quy ước chung của hai thành viên.
 
-- Kh?ng commit secret, `.env`, m?i tr??ng `workspace-support/`, archive, model ho?c d? li?u th?c nghi?m l?n.
-- Kh?ng th?c thi package nghi?n c?u; ch? ph?n t?ch t?nh trong m?i tr??ng c? l?p.
-- Kh?ng t? ? ??i schema, split, threshold, prompt ho?c test set.
-- Ch?y `python -m pytest -q` v? `python -m ruff check src tests` tr??c khi b?n giao n?u dependency ?? c?i.
-- Gi? thay ??i trong ph?m vi task; c?p nh?t t?i li?u khi thay ??i c?ch ch?y ho?c contract.
+- Không commit secret, `.env`, môi trường `workspace-support/`, archive, model hoặc dữ liệu thực nghiệm lớn.
+- Không thực thi package nghiên cứu; chỉ phân tích tĩnh trong môi trường cô lập.
+- Không tự ý đổi schema, split, threshold, prompt hoặc test set.
+- Chạy `python -m pytest -q` và `python -m ruff check src tests` trước khi bàn giao nếu dependency đã cài.
+- Giữ thay đổi trong phạm vi task; cập nhật tài liệu khi thay đổi cách chạy hoặc contract.
+- File văn bản dùng UTF-8 không BOM theo `.editorconfig`. Không ghi tiếng Việt qua pipeline PowerShell/Python khi chưa đặt encoding UTF-8; sau khi ghi phải đọc lại để kiểm tra dấu.

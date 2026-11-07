@@ -1,3 +1,3 @@
 # Slide
 
-??t ngu?n slide v? t?i nguy?n minh h?a t?i ??y. N?i dung ph?i kh?p config/predictions c?a run cu?i.
+Đặt nguồn slide và tài nguyên minh họa tại đây. Nội dung phải khớp config/predictions của run cuối.

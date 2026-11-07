@@ -1,3 +1,3 @@
 # Prompt registry
 
-M?i prompt l?u file ri?ng v?i version, ng?y thay ??i, model target, token budget v? ngu?n few-shot. C? t?i thi?u zero-shot, few-shot v? prompt k?m evidence t?nh; kh?ng ch?a test sample.
+Mỗi prompt lưu file riêng với version, ngày thay đổi, model target, token budget và nguồn few-shot. Có tối thiểu zero-shot, few-shot và prompt kèm evidence tĩnh; không chứa test sample.
