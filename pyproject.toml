@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kltn-malicious-package-detection"
+version = "0.1.0"
+description = "Reproducible static analysis experiments for malicious npm and PyPI packages"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+ml = ["scikit-learn", "xgboost", "pandas"]
+llm = ["httpx", "jsonschema"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+kltn = "kltn.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

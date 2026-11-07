@@ -1,0 +1,5 @@
+status = "draft"
+method = "xgboost"
+feature_schema = "UNSELECTED"
+metadata_enabled = true
+# Ch?n si?u tham s? v? preprocessing b?ng train/validation.

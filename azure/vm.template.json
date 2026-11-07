@@ -1,0 +1,153 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "type": "string" },
+    "vmName": { "type": "string", "defaultValue": "vm-kltn-ubuntu" },
+    "vmSize": { "type": "string", "defaultValue": "Standard_B2als_v2" },
+    "adminUsername": { "type": "string", "defaultValue": "azureuser" },
+    "sshPublicKey": { "type": "string" },
+    "sshSourceCidrs": { "type": "array" },
+    "cloudInit": { "type": "string" },
+    "imageVersion": { "type": "string", "defaultValue": "latest" },
+    "shutdownTimeUtc": { "type": "string", "defaultValue": "1600" }
+  },
+  "variables": {
+    "vnetName": "[concat(parameters('vmName'), '-vnet')]",
+    "nsgName": "[concat(parameters('vmName'), '-nsg')]",
+    "ipName": "[concat(parameters('vmName'), '-ip')]",
+    "nicName": "[concat(parameters('vmName'), '-nic')]",
+    "tags": { "project": "KLTN", "purpose": "static-analysis", "managedBy": "ARM-template" }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "apiVersion": "2024-05-01",
+      "name": "[variables('nsgName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "AllowSshFromResearcher",
+            "properties": {
+              "priority": 1000,
+              "protocol": "Tcp",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourceAddressPrefixes": "[parameters('sshSourceCidrs')]",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*",
+              "destinationPortRange": "22"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2024-05-01",
+      "name": "[variables('vnetName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "addressSpace": { "addressPrefixes": ["10.77.0.0/16"] },
+        "subnets": [{ "name": "research", "properties": { "addressPrefix": "10.77.1.0/24" } }]
+      }
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2024-05-01",
+      "name": "[variables('ipName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "sku": { "name": "Standard" },
+      "properties": { "publicIPAllocationMethod": "Static", "publicIPAddressVersion": "IPv4" }
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2024-05-01",
+      "name": "[variables('nicName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', variables('vnetName'))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', variables('ipName'))]"
+      ],
+      "properties": {
+        "networkSecurityGroup": { "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('nsgName'))]" },
+        "ipConfigurations": [
+          {
+            "name": "primary",
+            "properties": {
+              "primary": true,
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": { "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), 'research')]" },
+              "publicIPAddress": { "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('ipName'))]" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "apiVersion": "2024-07-01",
+      "name": "[parameters('vmName')]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": ["[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"],
+      "properties": {
+        "hardwareProfile": { "vmSize": "[parameters('vmSize')]" },
+        "storageProfile": {
+          "imageReference": { "publisher": "Canonical", "offer": "ubuntu-24_04-lts", "sku": "server", "version": "[parameters('imageVersion')]" },
+          "osDisk": {
+            "name": "[concat(parameters('vmName'), '-osdisk')]",
+            "createOption": "FromImage",
+            "diskSizeGB": 32,
+            "deleteOption": "Delete",
+            "managedDisk": { "storageAccountType": "StandardSSD_LRS" }
+          }
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "customData": "[base64(parameters('cloudInit'))]",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "provisionVMAgent": true,
+            "ssh": {
+              "publicKeys": [{ "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]", "keyData": "[parameters('sshPublicKey')]" }]
+            }
+          }
+        },
+        "securityProfile": { "securityType": "TrustedLaunch", "uefiSettings": { "secureBootEnabled": true, "vTpmEnabled": true } },
+        "networkProfile": {
+          "networkInterfaces": [{ "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]", "properties": { "primary": true, "deleteOption": "Delete" } }]
+        },
+        "diagnosticsProfile": { "bootDiagnostics": { "enabled": true } }
+      }
+    },
+    {
+      "type": "Microsoft.DevTestLab/schedules",
+      "apiVersion": "2018-09-15",
+      "name": "[concat('shutdown-computevm-', parameters('vmName'))]",
+      "location": "[parameters('location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": ["[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"],
+      "properties": {
+        "status": "Enabled",
+        "taskType": "ComputeVmShutdownTask",
+        "dailyRecurrence": { "time": "[parameters('shutdownTimeUtc')]" },
+        "timeZoneId": "UTC",
+        "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]",
+        "notificationSettings": { "status": "Disabled", "timeInMinutes": 30 }
+      }
+    }
+  ],
+  "outputs": {
+    "publicIpAddress": { "type": "string", "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('ipName')), '2024-05-01').ipAddress]" },
+    "vmResourceId": { "type": "string", "value": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]" },
+    "location": { "type": "string", "value": "[parameters('location')]" }
+  }
+}

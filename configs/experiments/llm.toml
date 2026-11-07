@@ -1,0 +1,7 @@
+status = "draft"
+method = "llm"
+provider = "UNSELECTED"
+model = "UNSELECTED"
+prompt = "UNSELECTED"
+file_selector = "UNSELECTED"
+# Token budget, timeout, retry v? h?n m?c chi ph? ch?t sau pilot.

@@ -1,0 +1,53 @@
+# Python, packaging and tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+/build/
+/dist/
+
+# Local credentials and agent working directories
+.env
+.env.*
+!.env.example
+/.codex-analysis/
+/.codex-azure/
+/workspace-support/*
+!/workspace-support/README.md
+/.aws/
+*.pem
+*.key
+
+# Archives and generated data; retain empty directory markers
+*.tgz
+*.tar.gz
+*.tar
+*.whl
+*.zip
+/data/raw/*
+/data/interim/*
+/data/processed/*
+/data/external/*
+/data/splits/*
+/artifacts/models/*
+/artifacts/predictions/*
+/artifacts/logs/*
+/artifacts/reports/*
+/artifacts/cache/*
+/experiments/runs/*
+!**/.gitkeep
+
+# Notebook and editor state
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+pytest-cache-files-*/

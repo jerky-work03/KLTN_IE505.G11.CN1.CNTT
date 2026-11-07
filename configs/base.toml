@@ -1,0 +1,21 @@
+status = "draft"
+schema_version = "0.1"
+seed = 42
+ecosystems = ["npm", "pypi"]
+
+[paths]
+data = "data"
+artifacts = "artifacts"
+runs = "experiments/runs"
+prompts = "prompts"
+
+[analysis]
+mode = "static_only"
+# Gi?i h?n ?? xu?t; ch?a c? extractor ?p d?ng.
+max_archive_bytes = 104857600
+max_total_uncompressed_bytes = 524288000
+max_files = 10000
+max_file_bytes = 5242880
+allow_symlinks = false
+allow_path_traversal = false
+execute_package_code = false
