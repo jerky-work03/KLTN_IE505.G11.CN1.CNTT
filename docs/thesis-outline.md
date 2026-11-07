@@ -1,11 +1,11 @@
-# D?n ? b?o c?o
+# Dàn ý báo cáo
 
-1. T?ng quan b?i to?n v? c?u h?i nghi?n c?u
-2. C? s? l? thuy?t v? c?ng tr?nh li?n quan
-3. D? li?u, g?n nh?n, ch?ng leakage v? ??c tr?ng t?nh
-4. GuardDog, Random Forest, XGBoost, LLM v? hybrid
-5. Thi?t k? th?c nghi?m v? protocol t?i l?p
-6. K?t qu?: metrics, chi ph?, latency, coverage v? l?i
-7. Robustness: obfuscation, prompt injection, gi?i th?ch
-8. Prototype CLI, gi?i h?n v? threats to validity
-9. K?t lu?n v? h??ng ph?t tri?n
+1. Tổng quan bài toán và câu hỏi nghiên cứu
+2. Cơ sở lý thuyết và công trình liên quan
+3. Dữ liệu, gán nhãn, chống leakage và đặc trưng tĩnh
+4. GuardDog, Random Forest, XGBoost, LLM và hybrid
+5. Thiết kế thực nghiệm và protocol tái lập
+6. Kết quả: metrics, chi phí, latency, coverage và lỗi
+7. Robustness: obfuscation, prompt injection, giải thích
+8. Prototype CLI, giới hạn và threats to validity
+9. Kết luận và hướng phát triển

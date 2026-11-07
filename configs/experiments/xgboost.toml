@@ -2,4 +2,4 @@ status = "draft"
 method = "xgboost"
 feature_schema = "UNSELECTED"
 metadata_enabled = true
-# Ch?n si?u tham s? v? preprocessing b?ng train/validation.
+# Chọn siêu tham số và preprocessing bằng train/validation.

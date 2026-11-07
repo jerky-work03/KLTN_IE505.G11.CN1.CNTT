@@ -1,3 +1,3 @@
-# B?o c?o v? k?t qu?
+# Báo cáo và kết quả
 
-`reports/tables/` ch?a b?ng ?? sinh t? predictions; `reports/figures/` ch?a h?nh ?? ch?n; `artifacts/reports/` ch?a output theo run. Kh?ng ch?nh s? li?u th? c?ng trong b?ng cu?i.
+`reports/tables/` chứa bảng đã sinh từ predictions; `reports/figures/` chứa hình đã chọn; `artifacts/reports/` chứa output theo run. Không chỉnh số liệu thủ công trong bảng cuối.

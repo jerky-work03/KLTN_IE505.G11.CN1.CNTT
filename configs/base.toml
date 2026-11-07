@@ -11,7 +11,7 @@ prompts = "prompts"
 
 [analysis]
 mode = "static_only"
-# Gi?i h?n ?? xu?t; ch?a c? extractor ?p d?ng.
+# Giới hạn đề xuất; chưa có extractor áp dụng.
 max_archive_bytes = 104857600
 max_total_uncompressed_bytes = 524288000
 max_files = 10000

@@ -1,48 +1,48 @@
-# Ph?t hi?n g?i th? vi?n ??c h?i tr?n npm v? PyPI
+# Phát hiện gói thư viện độc hại trên npm và PyPI
 
-B? khung Python cho kh?a lu?n k?t h?p ph?n t?ch t?nh, h?c m?y v? LLM. Ph?m vi v? ti?n ?? n?m trong [k? ho?ch](Ke_hoach_KLTN.md).
+Bộ khung Python cho khóa luận kết hợp phân tích tĩnh, học máy và LLM. Phạm vi và tiến độ nằm trong [kế hoạch](Ke_hoach_KLTN.md).
 
-**Tr?ng th?i:** ?? c? c?u tr?c module, CLI tr? gi?p/phi?n b?n, c?u h?nh nh?p v? quy ??c d? li?u. C?c ch?c n?ng thu th?p, qu?t, hu?n luy?n, g?i LLM v? ??nh gi? ch?a ???c tri?n khai. Ch?a t?i m?u ho?c g?i API.
+**Trạng thái:** đã có cấu trúc module, CLI trợ giúp/phiên bản, cấu hình nháp và quy ước dữ liệu. Các chức năng thu thập, quét, huấn luyện, gọi LLM và đánh giá chưa được triển khai. Chưa tải mẫu hoặc gọi API.
 
-## C?u tr?c
+## Cấu trúc
 
 ```text
 KLTN_Draft/
-??? src/kltn/
-?   ??? cli.py              # Entrypoint CLI
-?   ??? contracts.py        # H? sinh th?i, nh?n, tr?ng th?i k?t qu?
-?   ??? data/               # Thu th?p, ??c archive, manifest, lo?i tr?ng, chia t?p
-?   ??? features/           # ??c tr?ng t?nh npm/PyPI v? metadata
-?   ??? baselines/          # GuardDog, Random Forest, XGBoost
-?   ??? llm/                # Client, ch?n file/ng? c?nh, cache
-?   ??? hybrid/             # S?ng l?c ML, routing LLM, decision rules
-?   ??? evaluation/         # Metrics, coverage, chi ph?, b?o c?o
-?   ??? robustness/         # Obfuscation, prompt injection, ch?m gi?i th?ch
-?   ??? dependencies/       # Parser package-lock.json v? requirements.txt
-??? configs/                # C?u h?nh m?i tr??ng v? t?ng ph??ng ph?p
-??? prompts/                # Zero-shot, few-shot, prompt k?m b?ng ch?ng
-??? schemas/                # H?p ??ng manifest, prediction, run v? ??c tr?ng
-??? data/                   # Archive, d? li?u trung gian, manifests, splits
-??? artifacts/              # Model, predictions, logs, b?o c?o sinh ra
-??? experiments/            # Ghi nh?n run, quy?t ??nh v? c?u h?nh ?? kh?a
-??? scripts/                # Script ch?y batch/t?i l?p
-??? tests/                  # Unit, integration v? fixture l?nh t?nh
-??? notebooks/              # Kh?o s?t d? li?u, ph?n t?ch l?i
-??? docs/                   # Ki?n tr?c, giao th?c v? h??ng d?n ??ng g?p
-??? reports/                # B?n th?o, b?ng v? h?nh ?? ch?n
-??? slides/                 # Slide b?o v?
-??? demo/                   # K?ch b?n v? ??u v?o demo l?nh t?nh
-??? docker/                 # ?i?m ??t m?i tr??ng ph?n t?ch c? l?p
-??? azure/                  # H? t?ng VM hi?n c?
+├── src/kltn/
+│   ├── cli.py              # Entrypoint CLI
+│   ├── contracts.py        # Hệ sinh thái, nhãn, trạng thái kết quả
+│   ├── data/               # Thu thập, đọc archive, manifest, loại trùng, chia tập
+│   ├── features/           # Đặc trưng tĩnh npm/PyPI và metadata
+│   ├── baselines/          # GuardDog, Random Forest, XGBoost
+│   ├── llm/                # Client, chọn file/ngữ cảnh, cache
+│   ├── hybrid/             # Sàng lọc ML, routing LLM, decision rules
+│   ├── evaluation/         # Metrics, coverage, chi phí, báo cáo
+│   ├── robustness/         # Obfuscation, prompt injection, chấm giải thích
+│   └── dependencies/       # Parser package-lock.json và requirements.txt
+├── configs/                # Cấu hình môi trường và từng phương pháp
+├── prompts/                # Zero-shot, few-shot, prompt kèm bằng chứng
+├── schemas/                # Hợp đồng manifest, prediction, run và đặc trưng
+├── data/                   # Archive, dữ liệu trung gian, manifests, splits
+├── artifacts/              # Model, predictions, logs, báo cáo sinh ra
+├── experiments/            # Ghi nhận run, quyết định và cấu hình đã khóa
+├── scripts/                # Script chạy batch/tái lập
+├── tests/                  # Unit, integration và fixture lành tính
+├── notebooks/              # Khảo sát dữ liệu, phân tích lỗi
+├── docs/                   # Kiến trúc, giao thức và hướng dẫn đóng góp
+├── reports/                # Bản thảo, bảng và hình đã chọn
+├── slides/                 # Slide bảo vệ
+├── demo/                   # Kịch bản và đầu vào demo lành tính
+├── docker/                 # Điểm đặt môi trường phân tích cô lập
+└── azure/                  # Hạ tầng VM hiện có
 ```
 
-Xem [ki?n tr?c v? ph?n c?ng module](docs/architecture.md), [quy ??c d? li?u](docs/data-contracts.md) v? [quy tr?nh ph?t tri?n](docs/development.md). Quy ??c l?m vi?c chung n?m trong [TEAM_RULES.md](TEAM_RULES.md); agent ??c th?m [AGENTS.md](AGENTS.md).
+Xem [kiến trúc và phân công module](docs/architecture.md), [quy ước dữ liệu](docs/data-contracts.md) và [quy trình phát triển](docs/development.md). Quy ước làm việc chung nằm trong [TEAM_RULES.md](TEAM_RULES.md); agent đọc thêm [AGENTS.md](AGENTS.md).
 
-## Ch?y b? khung
+## Chạy bộ khung
 
-Python 3.11 tr? l?n; khuy?n ngh? Python 3.12 tr?n VM Ubuntu. Python d?ng cho ML s? ???c c? ??nh sau pilot ki?m tra t??ng th?ch.
+Python 3.11 trở lên; khuyến nghị Python 3.12 trên VM Ubuntu. Python dùng cho ML sẽ được cố định sau pilot kiểm tra tương thích.
 
-Windows PowerShell, kh?ng c?n c?i dependency ?? xem CLI:
+Windows PowerShell, không cần cài dependency để xem CLI:
 
 ```powershell
 $env:PYTHONPATH = "$PWD/src"
@@ -57,7 +57,7 @@ PYTHONPATH=src python3 -m kltn --help
 PYTHONPATH=src python3 -m kltn --version
 ```
 
-C?i m?i tr??ng ph?t tri?n khi b?t ??u tri?n khai:
+Cài môi trường phát triển khi bắt đầu triển khai:
 
 ```powershell
 python -m venv .venv
@@ -65,14 +65,14 @@ python -m venv .venv
 .\.venv\Scripts\kltn.exe --help
 ```
 
-C?c nh?m t?y ch?n `ml` v? `llm` ch? c?i khi c?n. GuardDog s? ???c c? ??nh phi?n b?n sau pilot v? ?u ti?n m?i tr??ng ri?ng. Ch?a c? dependency lock; kh?ng coi m?i tr??ng n?y l? b?n ?? ??ng b?ng ?? ch?y test nghi?n c?u.
+Các nhóm tùy chọn `ml` và `llm` chỉ cài khi cần. GuardDog sẽ được cố định phiên bản sau pilot và ưu tiên môi trường riêng. Chưa có dependency lock; không coi môi trường này là bản đã đóng băng để chạy test nghiên cứu.
 
-## Quy ??c l?u tr?
+## Quy ước lưu trữ
 
-- `data/manifests/manifest.template.csv` l? m?u c?t; ch?a c? d? li?u th?c nghi?m.
-- `configs/experiments/*.toml` c? tr?ng th?i `draft`. Ch?a ch?n model LLM, ng??ng hybrid ho?c m?c chia t?p.
-- Archive, d? li?u sinh ra, model, log v? cache ???c lo?i kh?i Git; th? m?c gi? b?ng `.gitkeep`.
-- K?t qu? d?ng `malicious`, `benign`, `inconclusive`, `error`, `unsupported`; l?i kh?ng ???c ??i th?nh nh?n l?nh t?nh.
-- M?i run c?n l?u commit, config/hash, seed, manifest/hash, phi?n b?n ph??ng ph?p v? predictions t?ng m?u.
+- `data/manifests/manifest.template.csv` là mẫu cột; chưa có dữ liệu thực nghiệm.
+- `configs/experiments/*.toml` có trạng thái `draft`. Chưa chọn model LLM, ngưỡng hybrid hoặc mốc chia tập.
+- Archive, dữ liệu sinh ra, model, log và cache được loại khỏi Git; thư mục giữ bằng `.gitkeep`.
+- Kết quả dùng `malicious`, `benign`, `inconclusive`, `error`, `unsupported`; lỗi không được đổi thành nhãn lành tính.
+- Mỗi run cần lưu commit, config/hash, seed, manifest/hash, phiên bản phương pháp và predictions từng mẫu.
 
-Ch? ??c t?nh m?u trong m?i tr??ng c? l?p; kh?ng c?i, build ho?c th?c thi m? m?u. Quy tr?nh h? t?ng hi?n t?i n?m trong [h??ng d?n Azure](azure/README.md). Docker ph?n t?ch m?u ch?a ???c thi?t l?p.
+Chỉ đọc tĩnh mẫu trong môi trường cô lập; không cài, build hoặc thực thi mã mẫu. Quy trình hạ tầng hiện tại nằm trong [hướng dẫn Azure](azure/README.md). Docker phân tích mẫu chưa được thiết lập.

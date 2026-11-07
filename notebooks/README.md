@@ -1,3 +1,3 @@
 # Notebooks
 
-Ch? d?ng cho kh?o s?t v? ph?n t?ch sau khi ?? l?u script t?i l?p t??ng ?ng. ??t notebook theo th? t? `01_...`, `02_...`; kh?ng l?u archive hay secret trong notebook output.
+Chỉ dùng cho khảo sát và phân tích sau khi đã lưu script tái lập tương ứng. Đặt notebook theo thứ tự `01_...`, `02_...`; không lưu archive hay secret trong notebook output.

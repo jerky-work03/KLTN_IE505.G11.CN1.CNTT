@@ -1,39 +1,41 @@
-# Quy ??c l?m vi?c chung
+# Quy ước làm việc chung
 
-**D? ?n:** Nghi?n c?u ph?t hi?n g?i th? vi?n ??c h?i tr?n npm v? PyPI  
-**Th?nh vi?n:** Ng? Th? ??c Nhu v? Nguy?n Trung Hi?u  
-**M?c ti?u c?a file:** gi? m?i tr??ng m?y th?t v? m?y ?o ??ng b?, tr?nh ghi ?? d? li?u ho?c l?m sai k?t qu? th?c nghi?m.
+**Dự án:** Nghiên cứu phát hiện gói thư viện độc hại trên npm và PyPI
 
-## 1. Nguy?n t?c b?t bu?c
+**Thành viên:** Ngô Thị Đức Nhu và Nguyễn Trung Hiếu
 
-1. M?i thay ??i d?ng chung ph?i ?i qua Git. Kh?ng g?i c? th? m?c m?i tr??ng ho?c archive qua Git.
-2. Kh?ng commit API key, token, SSH key, `.env`, d? li?u th?, archive m? ??c, model l?n, cache ho?c log ch?a th?ng tin nh?y c?m.
-3. Kh?ng ch?y `npm install`, `pip install`, build wheel ho?c script c?i ??t c?a package nghi?n c?u. Ch? ??c t?nh trong VM/container c? l?p.
-4. Kh?ng s?a test set, prompt, threshold ho?c hyperparameter sau khi ?? xem k?t qu? test ?? l?m ??p k?t qu?. N?u ph?i s?a, ghi r? l? exploratory run.
-5. L?i ph?n t?ch kh?ng ???c ??i th?nh `benign`; d?ng `inconclusive`, `error` ho?c `unsupported`.
+**Mục tiêu của file:** giữ môi trường máy thật và máy ảo đồng bộ, tránh ghi đè dữ liệu hoặc làm sai kết quả thực nghiệm.
 
-## 2. Ph?n c?ng m?c ??nh
+## 1. Nguyên tắc bắt buộc
 
-| Ph?n | Ng??i ch?nh | Th? m?c/module |
+1. Mọi thay đổi dùng chung phải đi qua Git. Không gửi cả thư mục môi trường hoặc archive qua Git.
+2. Không commit API key, token, SSH key, `.env`, dữ liệu thô, archive mã độc, model lớn, cache hoặc log chứa thông tin nhạy cảm.
+3. Không chạy `npm install`, `pip install`, build wheel hoặc script cài đặt của package nghiên cứu. Chỉ đọc tĩnh trong VM/container cô lập.
+4. Không sửa test set, prompt, threshold hoặc hyperparameter sau khi đã xem kết quả test để làm đẹp kết quả. Nếu phải sửa, ghi rõ là exploratory run.
+5. Lỗi phân tích không được đổi thành `benign`; dùng `inconclusive`, `error` hoặc `unsupported`.
+
+## 2. Phân công mặc định
+
+| Phần | Người chính | Thư mục/module |
 |---|---|---|
-| D? li?u, manifest, lo?i tr?ng, chia t?p | Nhu | `src/kltn/data/`, `data/manifests/` |
-| ??c tr?ng t?nh v? ML | Nhu | `src/kltn/features/`, `src/kltn/baselines/ml.py` |
-| GuardDog | Hi?u | `src/kltn/baselines/guarddog.py` |
-| LLM, prompt, cache, retry | Hi?u | `src/kltn/llm/`, `prompts/` |
-| Hybrid v? dependency CLI | Hi?u | `src/kltn/hybrid/`, `src/kltn/dependencies/`, `src/kltn/cli.py` |
-| Contract, evaluator, robustness, b?o c?o | C?ng review | `src/kltn/contracts.py`, `evaluation/`, `robustness/`, `docs/` |
+| Dữ liệu, manifest, loại trùng, chia tập | Nhu | `src/kltn/data/`, `data/manifests/` |
+| Đặc trưng tĩnh và ML | Nhu | `src/kltn/features/`, `src/kltn/baselines/ml.py` |
+| GuardDog | Hiếu | `src/kltn/baselines/guarddog.py` |
+| LLM, prompt, cache, retry | Hiếu | `src/kltn/llm/`, `prompts/` |
+| Hybrid và dependency CLI | Hiếu | `src/kltn/hybrid/`, `src/kltn/dependencies/`, `src/kltn/cli.py` |
+| Contract, evaluator, robustness, báo cáo | Cùng review | `src/kltn/contracts.py`, `evaluation/`, `robustness/`, `docs/` |
 
-Ng??i kh?ng ph? tr?ch v?n ???c s?a module c?a ng??i kia khi c? l? do r? r?ng, nh?ng ph?i m? PR v? th?m ng??i ph? tr?ch v?o review.
+Người không phụ trách vẫn được sửa module của người kia khi có lý do rõ ràng, nhưng phải mở PR và thêm người phụ trách vào review.
 
-## 3. Git v? branch
+## 3. Git và branch
 
-- `main`: ch? ch?a code ?? ch?y ki?m tra; kh?ng commit tr?c ti?p.
-- T?o branch theo d?ng `<nguoi>/<task>`:
+- `main`: chỉ chứa code đã chạy kiểm tra; không commit trực tiếp.
+- Tạo branch theo dạng `<nguoi>/<task>`:
   - `nhu/W02-data-manifest`
   - `hieu/W05-hybrid-routing`
   - `shared/W06-evaluation`
-- M?t branch ch? ph?c v? m?t m?c ti?u. Kh?ng gom s?a code, ??i d? li?u v? ??i format b?o c?o kh?ng li?n quan.
-- Tr??c khi b?t ??u:
+- Một branch chỉ phục vụ một mục tiêu. Không gom sửa code, đổi dữ liệu và đổi format báo cáo không liên quan.
+- Trước khi bắt đầu:
 
 ```bash
 git fetch origin
@@ -42,7 +44,7 @@ git pull --ff-only
 git switch -c <branch>
 ```
 
-- Tr??c khi push, ch?y test/lint v? ki?m tra file s? commit:
+- Trước khi push, chạy test/lint và kiểm tra file sẽ commit:
 
 ```bash
 python -m pytest -q
@@ -52,78 +54,79 @@ git diff --check
 git diff --stat
 ```
 
-- Commit d?ng d?ng ng?n, r? m?c ??ch: `data: add manifest validation`, `llm: record retry cost`.
-- Kh?ng d?ng `git push --force` tr?n `main` ho?c branch ng??i kh?c. N?u branch ri?ng c?n force push, b?o ng??i c?n l?i tr??c.
-- PR ph?i n?u: m?c ti?u, file ch?nh, c?ch ki?m tra, thay ??i contract/config v? ?nh h??ng ??n k?t qu? c?.
+- Commit dùng dạng ngắn, rõ mục đích: `data: add manifest validation`, `llm: record retry cost`.
+- Không dùng `git push --force` trên `main` hoặc branch người khác. Nếu branch riêng cần force push, báo người còn lại trước.
+- PR phải nêu: mục tiêu, file chính, cách kiểm tra, thay đổi contract/config và ảnh hưởng đến kết quả cũ.
 
-## 4. M?y th?t, m?y ?o v? m?i tr??ng ri?ng
+## 4. Máy thật, máy ảo và môi trường riêng
 
-- M?i m?y c? m?i tr??ng ri?ng: `.venv/`, `workspace-support/`, `.env` v? cache kh?ng ??ng b? qua Git.
-- Kh?ng commit ???ng d?n tuy?t ??i ki?u `C:\...` ho?c `/home/...`; d?ng ???ng d?n t??ng ??i v? bi?n m?i tr??ng.
-- `azure/` l? m? h? t?ng d?ng chung. `workspace-support/.codex-azure/` l? Azure CLI c?c b?, kh?ng ph?i m? d? ?n.
-- N?u hai ng??i c?ng d?ng m?t VM, m?i ng??i d?ng m?t clone/th? m?c l?m vi?c ri?ng. Kh?ng ??i branch trong clone c?a ng??i kia.
-- Tr??c khi ch?y t?c v? t?n t?i nguy?n tr?n VM, ghi v?o issue/PR: ng??i ch?y, run ID, th?i gian d? ki?n v? th? m?c output.
-- Kh?ng x?a output ho?c container c?a ng??i kia n?u ch?a x?c nh?n.
+- Mỗi máy có môi trường riêng: `.venv/`, `workspace-support/`, `.env` và cache không đồng bộ qua Git.
+- Không commit đường dẫn tuyệt đối kiểu `C:\...` hoặc `/home/...`; dùng đường dẫn tương đối và biến môi trường.
+- `azure/` là mã hạ tầng dùng chung. `workspace-support/.codex-azure/` là Azure CLI cục bộ, không phải mã dự án.
+- Nếu hai người cùng dùng một VM, mỗi người dùng một clone/thư mục làm việc riêng. Không đổi branch trong clone của người kia.
+- Trước khi chạy tác vụ tốn tài nguyên trên VM, ghi vào issue/PR: người chạy, run ID, thời gian dự kiến và thư mục output.
+- Không xóa output hoặc container của người kia nếu chưa xác nhận.
 
-## 5. D? li?u v? artifact
+## 5. Dữ liệu và artifact
 
-???c commit:
+Được commit:
 
-- schema, template manifest, config kh?ng ch?a secret, script, test fixture l?nh t?nh, t?i li?u v? b?ng nh? ?? ki?m tra.
+- schema, template manifest, config không chứa secret, script, test fixture lành tính, tài liệu và bảng nhỏ đã kiểm tra.
 
-Kh?ng ???c commit:
+Không được commit:
 
-- `data/raw/`, `data/interim/`, `data/processed/`, `data/external/` th?c t?;
-- archive `.tgz`, `.tar.gz`, `.whl`, model, cache, prediction/log l?n;
-- API response c? secret ho?c n?i dung package ch?a ???c ph?p chia s?.
+- `data/raw/`, `data/interim/`, `data/processed/`, `data/external/` thực tế;
+- archive `.tgz`, `.tar.gz`, `.whl`, model, cache, prediction/log lớn;
+- API response có secret hoặc nội dung package chưa được phép chia sẻ.
 
-M?i run th?c nghi?m ph?i l?u ngo?i Git ho?c trong storage chung c? quy?n truy c?p v? c? c?c th?ng tin:
+Mỗi run thực nghiệm phải lưu ngoài Git hoặc trong storage chung có quyền truy cập và có các thông tin:
 
 - `run_id`, commit SHA, config hash, seed;
-- manifest hash v? snapshot ngu?n;
-- phi?n b?n GuardDog/model/prompt;
-- predictions t?ng m?u, metrics, coverage, latency, token, retry v? chi ph?;
-- ghi ch? thay ??i ho?c l?i.
+- manifest hash và snapshot nguồn;
+- phiên bản GuardDog/model/prompt;
+- predictions từng mẫu, metrics, coverage, latency, token, retry và chi phí;
+- ghi chú thay đổi hoặc lỗi.
 
-## 6. Contract kh?ng ???c t? ? ph? v?
+## 6. Contract không được tự ý phá vỡ
 
-C?c tr??ng sau ph?i gi? ?n ??nh ho?c t?ng `schema_version` khi thay ??i:
+Các trường sau phải giữ ổn định hoặc tăng `schema_version` khi thay đổi:
 
-- manifest: `sample_id`, `ecosystem`, `package`, `version`, `artifact_filename`, `sha256`, `label`, `label_basis`, ng?y th?ng, tr?ng th?i;
-- prediction: `sample_id`, `method`, `run_id`, `status`, `label`, `score`, `evidence`, latency, token, retry v? error;
+- manifest: `sample_id`, `ecosystem`, `package`, `version`, `artifact_filename`, `sha256`, `label`, `label_basis`, ngày tháng, trạng thái;
+- prediction: `sample_id`, `method`, `run_id`, `status`, `label`, `score`, `evidence`, latency, token, retry và error;
 - status: `malicious`, `benign`, `inconclusive`, `error`, `unsupported`.
 
-Thay ??i `src/kltn/contracts.py`, file schema, split ho?c decision rule hybrid c?n ???c hai ng??i review tr??c khi merge.
+Thay đổi `src/kltn/contracts.py`, file schema, split hoặc decision rule hybrid cần được hai người review trước khi merge.
 
-## 7. Quy t?c th?c nghi?m
+## 7. Quy tắc thực nghiệm
 
-- Chia train/validation/test theo th?i gian v? kh?a test tr??c khi ch?y ch?nh.
-- Preprocessing, feature selection, threshold v? prompt ch? fit/ch?n b?ng train/validation.
-- So s?nh c?c ph??ng ph?p tr?n c?ng t?p m?u; n?u LLM ch?y subset th? m?i ph??ng ph?p tr?n subset ?? ph?i d?ng c?ng danh s?ch.
-- B?o ri?ng npm/PyPI, coverage, m?u b? lo?i, `inconclusive`/`error` v? chi ph? retry.
-- Kh?ng d?ng GuardDog l?m ngu?n nh?n duy nh?t r?i d?ng ch?nh nh?n ?? ?? kh?ng ??nh hi?u qu? GuardDog.
+- Chia train/validation/test theo thời gian và khóa test trước khi chạy chính.
+- Preprocessing, feature selection, threshold và prompt chỉ fit/chọn bằng train/validation.
+- So sánh các phương pháp trên cùng tập mẫu; nếu LLM chạy subset thì mọi phương pháp trên subset đó phải dùng cùng danh sách.
+- Báo riêng npm/PyPI, coverage, mẫu bị loại, `inconclusive`/`error` và chi phí retry.
+- Không dùng GuardDog làm nguồn nhãn duy nhất rồi dùng chính nhãn đó để khẳng định hiệu quả GuardDog.
 
-## 8. C?ch x? l? conflict
+## 8. Cách xử lý conflict
 
-1. D?ng merge; kh?ng ch?n b?a m?t ph?a.
-2. G?i ?o?n conflict v? m?c ti?u thay ??i cho ng??i s? h?u module.
-3. Gi? contract v? d? li?u ?? ???c ch?t; ?u ti?n thay ??i nh? nh?t.
-4. Ch?y l?i test, `git diff --check` v? m?t smoke test li?n quan.
-5. Ghi quy?t ??nh v?o PR ho?c `experiments/README.md` n?u conflict ?nh h??ng k?t qu?.
+1. Dừng merge; không chọn bừa một phía.
+2. Gửi đoạn conflict và mục tiêu thay đổi cho người sở hữu module.
+3. Giữ contract và dữ liệu đã được chốt; ưu tiên thay đổi nhỏ nhất.
+4. Chạy lại test, `git diff --check` và một smoke test liên quan.
+5. Ghi quyết định vào PR hoặc `experiments/README.md` nếu conflict ảnh hưởng kết quả.
 
-## 9. Checklist tr??c khi merge
+## 9. Checklist trước khi merge
 
-- [ ] Branch ??ng task, kh?ng c? file m?i tr??ng ho?c secret.
-- [ ] Test/lint ch?y th?nh c?ng.
-- [ ] Contract/schema kh?ng b? ??i ng?m.
-- [ ] Config v? output c? version/run ID n?u ?nh h??ng th?c nghi?m.
-- [ ] README/docs ?? c?p nh?t n?u thay ??i c?ch ch?y.
-- [ ] Ng??i ph? tr?ch module ?? review.
-## 10. GitHub account ri?ng cho d? ?n
+- [ ] Branch đúng task, không có file môi trường hoặc secret.
+- [ ] Test/lint chạy thành công.
+- [ ] Contract/schema không bị đổi ngầm.
+- [ ] Config và output có version/run ID nếu ảnh hưởng thực nghiệm.
+- [ ] README/docs đã cập nhật nếu thay đổi cách chạy.
+- [ ] Người phụ trách module đã review.
 
-- Repository n?y d?ng GitHub account/organization ri?ng c?a d? ?n; kh?ng d?ng nh?m account c? nh?n ho?c account c?ng ty.
-- Ch? c?u h?nh remote sau khi repository GitHub ?? ???c t?o v? x?c nh?n ??ng owner.
-- M?i m?y ph?i ki?m tra identity tr??c commit:
+## 10. GitHub account riêng cho dự án
+
+- Repository này dùng GitHub account/organization riêng của dự án; không dùng nhầm account cá nhân hoặc account công ty.
+- Chỉ cấu hình remote sau khi repository GitHub đã được tạo và xác nhận đúng owner.
+- Mỗi máy phải kiểm tra identity trước commit:
 
 ```bash
 git config user.name
@@ -131,8 +134,7 @@ git config user.email
 git remote -v
 ```
 
-- Kh?ng l?u password, personal access token ho?c private key trong repo. D?ng Git Credential Manager ho?c SSH key ri?ng cho account d? ?n.
-- N?u m?t m?y d?ng nhi?u GitHub account, ph?i t?ch SSH host alias ho?c credential context; kh?ng d?ng credential ?ang ??ng nh?p cho d? ?n kh?c.
-- Tr??c khi push l?n ??u, ki?m tra URL remote v? quy?n truy c?p b?ng m?t thao t?c an to?n nh? `git ls-remote origin`.
-- Kh?ng ??i owner, visibility ho?c branch protection c?a repository n?u ch?a th?ng nh?t c? hai ng??i.
-
+- Không lưu password, personal access token hoặc private key trong repo. Dùng Git Credential Manager hoặc SSH key riêng cho account dự án.
+- Nếu một máy dùng nhiều GitHub account, phải tách SSH host alias hoặc credential context; không dùng credential đang đăng nhập cho dự án khác.
+- Trước khi push lần đầu, kiểm tra URL remote và quyền truy cập bằng một thao tác an toàn như `git ls-remote origin`.
+- Không đổi owner, visibility hoặc branch protection của repository nếu chưa thống nhất cả hai người.

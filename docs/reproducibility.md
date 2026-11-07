@@ -1,9 +1,9 @@
-# Checklist t?i l?p
+# Checklist tái lập
 
-- [ ] C? snapshot ngu?n v? manifest hash.
-- [ ] C? lo?i tr?ng archive v? nh?m g?n tr?ng.
-- [ ] C? m?c chia train/validation/test theo th?i gian.
-- [ ] C? config method, seed, phi?n b?n dependency v? model.
-- [ ] C? prediction t?ng m?u v? log retry/chi ph?/latency.
-- [ ] C? script sinh metrics, b?ng v? h?nh t? prediction.
-- [ ] Demo ch?y trong m?i tr??ng s?ch m? kh?ng c?i/build/th?c thi m?u.
+- [ ] Có snapshot nguồn và manifest hash.
+- [ ] Có loại trùng archive và nhóm gần trùng.
+- [ ] Có mốc chia train/validation/test theo thời gian.
+- [ ] Có config method, seed, phiên bản dependency và model.
+- [ ] Có prediction từng mẫu và log retry/chi phí/latency.
+- [ ] Có script sinh metrics, bảng và hình từ prediction.
+- [ ] Demo chạy trong môi trường sạch mà không cài/build/thực thi mẫu.

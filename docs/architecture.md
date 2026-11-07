@@ -1,4 +1,4 @@
-# Ki?n tr?c module
+# Kiến trúc module
 
 ```text
 manifest -> archive reader -> static features -> detector adapters
@@ -9,10 +9,10 @@ manifest -> archive reader -> static features -> detector adapters
 prediction + run metadata -> evaluator -> tables/figures/report
 ```
 
-`src/kltn/data` ch? t?o ??u v?o chu?n h?a v? kh?ng bi?t decision rule c?a detector. `src/kltn/features` tr? feature vector c?ng evidence v? coverage. `src/kltn/baselines`, `src/kltn/llm` v? `src/kltn/hybrid` d?ng chung prediction contract. `src/kltn/evaluation` ch? ??c predictions ?? l?u ?? tr?nh thay ??i k?t qu? khi t?nh l?i metrics.
+`src/kltn/data` chỉ tạo đầu vào chuẩn hóa và không biết decision rule của detector. `src/kltn/features` trả feature vector cùng evidence và coverage. `src/kltn/baselines`, `src/kltn/llm` và `src/kltn/hybrid` dùng chung prediction contract. `src/kltn/evaluation` chỉ đọc predictions đã lưu để tránh thay đổi kết quả khi tính lại metrics.
 
-## Ph?n c?ng
+## Phân công
 
-- **Ng? Th? ??c Nhu:** `data/`, `features/`, `baselines/ml.py`, schema feature, quality report.
-- **Nguy?n Trung Hi?u:** `baselines/guarddog.py`, `llm/`, `hybrid/`, `dependencies/`, CLI v? demo.
-- **C?ng ph? tr?ch:** `contracts.py`, evaluator, robustness, protocol, b?o c?o v? review.
+- **Ngô Thị Đức Nhu:** `data/`, `features/`, `baselines/ml.py`, schema feature, quality report.
+- **Nguyễn Trung Hiếu:** `baselines/guarddog.py`, `llm/`, `hybrid/`, `dependencies/`, CLI và demo.
+- **Cùng phụ trách:** `contracts.py`, evaluator, robustness, protocol, báo cáo và review.
