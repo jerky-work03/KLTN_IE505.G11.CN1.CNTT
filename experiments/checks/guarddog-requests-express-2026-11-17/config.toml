@@ -1,0 +1,18 @@
+run_id = "guarddog-requests-express-2026-11-17"
+mode = "exploratory_smoke_check"
+method = "guarddog"
+guarddog_version = "3.2.0"
+scan_date = "2026-11-17"
+environment = "Ubuntu 24.04 Azure VM"
+sandbox = true
+seed = "not_applicable"
+
+[[targets]]
+ecosystem = "pypi"
+package = "requests"
+version = "2.34.2"
+
+[[targets]]
+ecosystem = "npm"
+package = "express"
+version = "5.3.0"
