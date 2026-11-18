@@ -1,5 +1,7 @@
 # Quy tr?nh ph?t tri?n
 
+Quy trình nhánh: `main` → `dev` → `<nguoi>/<task>`. Tạo nhánh công việc từ `dev`, mở PR vào `dev`, sau đó phát hành bằng PR từ `dev` vào `main`. Xem [hướng dẫn nhánh](branching.md).
+
 1. T?o branch/task theo m? k? ho?ch (`W02-N01`, `W05-H02`...).
 2. Ch?y unit test v? lint tr??c commit.
 3. M?i run l?u commit, config, seed, manifest hash, method/model/prompt version, th?i ?i?m v? predictions t?ng m?u.

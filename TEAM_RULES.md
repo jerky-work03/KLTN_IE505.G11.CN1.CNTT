@@ -27,6 +27,12 @@ Ng??i kh?ng ph? tr?ch v?n ???c s?a module c?a ng??i kia khi c? l? do r? r?ng, nh
 
 ## 3. Git v? branch
 
+- Quy trình phân cấp: `main` (bản ổn định) → `dev` (tích hợp) → `<nguoi>/<task>` (công việc).
+- Tạo nhánh công việc từ `dev`, mở PR vào `dev`. Khi phát hành, mở PR từ `dev` vào `main` sau khi kiểm tra và review.
+- Git không lưu thuộc tính parent/child của nhánh. Đây là quy trình tạo nhánh và chọn nhánh đích của PR, không phải thay đổi lịch sử commit.
+- Giữ nguyên tên và lịch sử các nhánh cũ; công việc mới luôn tách từ `dev` mới nhất.
+- Xem hướng dẫn tại [docs/branching.md](docs/branching.md).
+
 - `main`: ch? ch?a code ?? ch?y ki?m tra; kh?ng commit tr?c ti?p.
 - T?o branch theo d?ng `<nguoi>/<task>`:
   - `nhu/W02-data-manifest`
@@ -37,8 +43,8 @@ Ng??i kh?ng ph? tr?ch v?n ???c s?a module c?a ng??i kia khi c? l? do r? r?ng, nh
 
 ```bash
 git fetch origin
-git switch main
-git pull --ff-only
+git switch dev
+git pull --ff-only origin dev
 git switch -c <branch>
 ```
 
