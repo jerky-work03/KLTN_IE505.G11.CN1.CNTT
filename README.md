@@ -2,7 +2,7 @@
 
 Bộ khung Python cho khóa luận kết hợp phân tích tĩnh, học máy và LLM. Phạm vi và tiến độ nằm trong [kế hoạch](Ke_hoach_KLTN.md).
 
-**Trạng thái:** đã có cấu trúc module, CLI trợ giúp/phiên bản, cấu hình nháp và quy ước dữ liệu. Các chức năng thu thập, quét, huấn luyện, gọi LLM và đánh giá chưa được triển khai. Chưa tải mẫu hoặc gọi API.
+**Trạng thái:** đã có cấu trúc module, CLI trợ giúp/phiên bản, cấu hình nháp và quy ước dữ liệu. Có script chọn/tải archive cùng bước kiểm tra hash; xem [hướng dẫn thu thập trên VM](docs/vm-sample-collection.md). Đã thu thập 4.500 archive trong run ngày 19/11/2026; 1.500 ứng viên npm còn chờ xác minh nhãn. Chưa triển khai pipeline quét, huấn luyện, gọi LLM và đánh giá end-to-end.
 
 ## Cấu trúc
 
@@ -69,7 +69,7 @@ Các nhóm tùy chọn `ml` và `llm` chỉ cài khi cần. GuardDog sẽ đư�
 
 ## Quy ước lưu trữ
 
-- `data/manifests/manifest.template.csv` là mẫu cột; chưa có dữ liệu thực nghiệm.
+- `data/manifests/manifest.template.csv` là mẫu cột. Manifest ứng viên npm đã có trong repo; archive và báo cáo thu thập chi tiết được lưu ngoài Git. Chưa khóa tập đánh giá.
 - `configs/experiments/*.toml` có trạng thái `draft`. Chưa chọn model LLM, ngưỡng hybrid hoặc mốc chia tập.
 - Archive, dữ liệu sinh ra, model, log và cache được loại khỏi Git; thư mục giữ bằng `.gitkeep`.
 - Kết quả dùng `malicious`, `benign`, `inconclusive`, `error`, `unsupported`; lỗi không được đổi thành nhãn lành tính.
